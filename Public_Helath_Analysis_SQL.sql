@@ -68,7 +68,33 @@ select * from primarycare where servicetype = "Immunization";
 ## Q Find patients with diabetes.
 
 select * from primarycare where diagnosisgroup = "Diabetes";
+
+## Q Find referred patients.
+
+select * from primarycare where outcome = "Referred";
  
+ ## Q Find patients who were admitted.
  
+ select * from primarycare where outcome = "Admitted";
+ 
+ ## Q Sort patients by age from oldest to youngest.
+ 
+ select * from primarycare order by age desc;
+ 
+ ## Q Sort visits by cost.
+ 
+ select * from primarycare order by costbdt desc;
+ 
+ ## Q Find female patients older than 50.
+ 
+ select * from primarycare where sex = "Female" and age > 50;
+ 
+ ## Q Find visits costing between 500 and 1,000 BDT.
+ 
+ select * from primarycare where costbdt between 500 and 1000;
+ 
+ ## Q Find all non-Dhaka records.
+ 
+ select * from primarycare where district != "Dhaka";
  
 
