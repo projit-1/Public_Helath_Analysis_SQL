@@ -97,4 +97,49 @@ select * from primarycare where outcome = "Referred";
  
  select * from primarycare where district != "Dhaka";
  
+ ## Q Count total patients.
+ 
+ select count(*) as total_patients from primarycare;
+ 
+ ## Q Calculate average age.
+ 
+ select round(avg(age),2) as average_age from primarycare;
+ 
+ ## Q Find maximum age.
+ 
+ select round(MAX(age),2) as maximum_age from primarycare;
+ 
+ ## Q Find minimum age.
+ 
+ select round(MIN(age),2) as minimum_age from primarycare;
+ 
+select count(*) from primarycare where age = 1;
+
+ ## Q Calculate average visit cost.
+ 
+ select round(avg(costbdt),3) as average_visit_cost from primarycare;
+ 
+ ## Q Calculate total healthcare expenditure.
+ select sum(costbdt) as total_helathcare_cost from primarycare; 
+ 
+ ## Q Count patients by sex.
+ select sex, count(*) as patients_by_sex from primarycare
+ group by sex;
+ 
+ ## Q Count visits by district.
+ 
+ select district, count(*) as patients_by_district from primarycare
+ group by district;
+ 
+ ## Q Calculate average cost by district.
+ select district, round(avg(costbdt),2) as average_cost from primarycare
+ group by district order by average_cost desc;
+ 
+ ## Q Count visits by facility type.
+ select facilitytype, count(*) as facilitytype from primarycare
+ group by facilitytype;
+ 
+ 
+ 
+ 
 
