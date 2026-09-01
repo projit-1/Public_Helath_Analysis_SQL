@@ -139,7 +139,67 @@ select count(*) from primarycare where age = 1;
  select facilitytype, count(*) as facilitytype from primarycare
  group by facilitytype;
  
+ ## Q Find the number of visits for each diagnosis.
+ select diagnosisgroup, count(*) as diagnosisgroup from primarycare group by diagnosisgroup;
+ 
+ ## Q Find average age by diagnosis.
+ select diagnosisgroup, 
+	round(avg(age),2) as avg_age 
+ from primarycare 
+ group by diagnosisgroup;
+ 
+ ## Q Find total cost by facility.
+ 
+select facilitytype, 
+	sum(costbdt) as total_cost 
+from primarycare
+group by facilitytype;
+ 
+ ## Q Find districts with more than 600 visits.
+
+select district, count(*) as Total_Visit 
+from primarycare 
+group by district
+having count(*) > 600 
+order by total_visit desc ;
+
+ ## Q Find facility types with average cost above 500 BDT.
+ select facilitytype, avg(costbdt) as avg_cost 
+ from primarycare
+ group by facilitytype having avg(costbdt)>500;
+ 
+ ## Q Count diagnosis by district.
+ select district, diagnosisgroup, count(*) as total_patients from primarycare
+ group by district, diagnosisgroup
+ order by total_patients desc;
+ 
+ ## Q Find the most common diagnosis.
+ 
+select diagnosisgroup, count(*) as total_diagnosisgroup 
+	from primarycare
+group by diagnosisgroup
+order by total_diagnosisgroup desc limit 1;
+ 
+ ## Q Find the most common service.
+select servicetype, count(*) as total_servicetype
+	from primarycare 
+group by servicetype
+order by total_servicetype desc
+limit 1;
+
+ ## Q Calculate average cost by service type.
+ select servicetype, round(avg(costbdt),2) as avg_cost from primarycare
+ group by servicetype order by avg_cost desc;
+ 
+ ## Q Find services costing more than the overall average.
+ select servicetype, avg(costbdt) as avg_cost from primarycare
+ group by servicetype
+ having avg(costbdt) > (select avg(costbdt) from primarycare);
  
  
+
+ 
+ 
+
  
 
