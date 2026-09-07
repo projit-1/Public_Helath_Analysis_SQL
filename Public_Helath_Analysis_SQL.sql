@@ -196,10 +196,84 @@ limit 1;
  group by servicetype
  having avg(costbdt) > (select avg(costbdt) from primarycare);
  
+ ## Q Categorize patients into age groups.
+ select patientid, age, case
+           when age < 18 then 'Child'
+           when age < 60 then 'Adult'
+           else 'Older Adult'
+       end as age_group from primarycare;
+
+ ## Q Count patients by age group.
  
+ select case 
+	when age < 18 then "Child"
+	when age < 60 then "Adult"
+    else "Older Adult"
+end as agegroup,
+count(*) as total
+from primarycare
+group by agegroup;
+
+ ## Q Categorize visit cost.
+ select patientid, 
+		costbdt,
+		case 
+			when costbdt < 300 then "Low"
+            when costbdt < 700 then "Medium"
+            else "High"
+		end as cost_category
+	from primarycare;
+
+## 
+select case 
+			when costbdt < 300 then "Low"
+            when costbdt < 700 then "Medium"
+            else "High"
+		end as cost_category,
+        count(*) as total
+	from primarycare
+    group by cost_category;
+
+ ## Q Calculate rounded average cost.
+ 
+ select round(avg(costbdt),2) as average_cost from primarycare;
+ 
+ ## Q Extract the visit year.
+ 
+ select extract(year from visitdate) as year, 
+	count(*) as visits
+    from primarycare
+    group by year;
+ 
+ ## Q Extract visit month.
+ 
+ SELECT EXTRACT(MONTH FROM visitdate) AS month,
+       COUNT(*) AS visits
+FROM primarycare
+GROUP BY month
+ORDER BY month;
+ 
+ ## Q Find the longest patient ID.
+ SELECT MAX(LENGTH(patientid)) FROM primarycare;
+ ## Q Convert district names to uppercase.
+ SELECT UPPER(district) FROM primarycare;
+ 
+ ## Q Calculate cost rounded to nearest 100.
+ SELECT ROUND(costbdt / 100) * 100 AS rounded_cost
+	FROM primarycare;
+
+
+ ## Q  Find the percentage of admitted patients.
+ SELECT
+    round(100.0 * SUM(CASE WHEN outcome = 'Admitted' THEN 1 ELSE 0 END)
+    / COUNT(*),2) AS admission_percentage
+FROM primarycare;
+
 
  
  
+ 
+
 
  
 
